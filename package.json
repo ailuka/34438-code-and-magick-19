@@ -12,7 +12,8 @@
   },
   "devDependencies": {
     "eslint": "6.3.0",
-    "eslint-config-htmlacademy": "0.5.2"
+    "eslint-config-htmlacademy": "0.5.2",
+    "jsdoc": "^3.6.3"
   },
   "license": "MIT",
   "dependencies": {},
