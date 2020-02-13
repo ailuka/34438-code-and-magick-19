@@ -1,6 +1,14 @@
 'use strict';
 
 (function () {
+  var dialogHandle = window.dnd.dialogHandle;
+  var onDragAndDrop = window.dnd.onDragAndDrop;
+  var showMessageElement = window.util.showMessageElement;
+  var saveForm = window.backend.save;
+  var ENTER_KEY = window.util.ENTER_KEY;
+  var ESC_KEY = window.util.ESC_KEY;
+  var SUCCESS_COLOR = window.util.SUCCESS_COLOR;
+  var ERROR_COLOR = window.util.ERROR_COLOR;
   var SUCCESS_MESSAGE = 'Данные успешно сохранены.';
 
   /**
@@ -17,7 +25,7 @@
   };
 
   var onPopupEscPress = function (evt) {
-    if (evt.key === window.util.ESC_KEY && !checkIfElementHasFocus(setupUserName)) {
+    if (evt.key === ESC_KEY && !checkIfElementHasFocus(setupUserName)) {
       closePopup();
     }
   };
@@ -41,13 +49,13 @@
     setup.classList.remove('hidden');
     resetElementPosition(setup);
     document.addEventListener('keydown', onPopupEscPress);
-    window.dnd.dialogHandle.addEventListener('mousedown', window.dnd.onDragAndDrop);
+    dialogHandle.addEventListener('mousedown', onDragAndDrop);
   };
 
   var setupClose = setup.querySelector('.setup-close');
   var closePopup = function () {
     setup.classList.add('hidden');
-    document.removeEventListener('mousedown', window.dnd.onDragAndDrop);
+    document.removeEventListener('mousedown', onDragAndDrop);
     document.removeEventListener('keydown', onPopupEscPress);
   };
 
@@ -56,7 +64,7 @@
   });
 
   setupOpen.addEventListener('keydown', function (evt) {
-    if (evt.key === window.util.ENTER_KEY) {
+    if (evt.key === ENTER_KEY) {
       openPopup();
     }
   });
@@ -67,26 +75,26 @@
   });
 
   setupClose.addEventListener('keydown', function (evt) {
-    if (evt.key === window.util.ENTER_KEY) {
+    if (evt.key === ENTER_KEY) {
       closePopup();
     }
   });
 
   var onSetupFormSuccessLoad = function () {
-    window.util.showMessageElement(SUCCESS_MESSAGE, document.body, window.util.SUCCESS_COLOR);
+    showMessageElement(SUCCESS_MESSAGE, document.body, SUCCESS_COLOR);
     closePopup();
   };
 
   var errorBlock = setup.querySelector('.setup-footer');
   var onSetupFormError = function (errorMessage) {
-    window.util.showMessageElement(errorMessage, errorBlock, window.util.ERROR_COLOR);
+    showMessageElement(errorMessage, errorBlock, ERROR_COLOR);
   };
 
   var setupForm = setup.querySelector('.setup-wizard-form');
   // Отменяем действие по умолчанию и сохраняем данные из формы с помощью AJAX.
   setupForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(setupForm), onSetupFormSuccessLoad, onSetupFormError);
+    saveForm(new FormData(setupForm), onSetupFormSuccessLoad, onSetupFormError);
   });
 
 })();

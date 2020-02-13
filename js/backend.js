@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var URL_SAVE = 'https://js.dump.academy/code-and-magick00';
+  var URL_SAVE = 'https://js.dump.academy/code-and-magick';
   var URL_LOAD = 'https://js.dump.academy/code-and-magick/data';
   var TIMEOUT = 10000;
   var StatusCode = {

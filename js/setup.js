@@ -1,5 +1,10 @@
 'use strict';
 (function () {
+  var showMessageElement = window.util.showMessageElement;
+  var changeColor = window.color.change;
+  var loadSimilarWizards = window.backend.load;
+  var ERROR_COLOR = window.util.ERROR_COLOR;
+  // var getRandom = window.util.getRandom;
   // var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
   // var WIZARD_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
   var COAT_COLOR = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
@@ -13,9 +18,9 @@
    */
   // var generateOneWizard = function () {
   //   return {
-  //     name: window.util.getRandom(WIZARD_NAMES) + ' ' + window.util.getRandom(WIZARD_SURNAMES),
-  //     coatColor: window.util.getRandom(COAT_COLOR),
-  //     eyesColor: window.util.getRandom(EYES_COLOR)
+  //     name: getRandom(WIZARD_NAMES) + ' ' + getRandom(WIZARD_SURNAMES),
+  //     coatColor: getRandom(COAT_COLOR),
+  //     eyesColor: getRandom(EYES_COLOR)
   //   };
   // };
 
@@ -75,7 +80,7 @@
   };
 
   var onErrorWizardsLoad = function (errorMessage) {
-    window.util.showMessageElement(errorMessage, errorWizardsBlock, window.util.ERROR_COLOR);
+    showMessageElement(errorMessage, errorWizardsBlock, ERROR_COLOR);
   };
 
   // Переменные для вставки похожих магов на страницу.
@@ -93,12 +98,12 @@
   var coatColorInput = setupWizardAppearance.querySelector('input[name = coat-color]');
   var fireballColorInput = setupFireball.querySelector('input[name = fireball-color]');
   // Вызываем модуль для окраски элементов мага при клике.
-  window.color.change(setupWizardCoat, COAT_COLOR, coatColorInput);
-  window.color.change(setupWizardEyes, EYES_COLOR, eyesColorInput);
-  window.color.change(setupFireball, FIREBALL_COLOR, fireballColorInput);
+  changeColor(setupWizardCoat, COAT_COLOR, coatColorInput);
+  changeColor(setupWizardEyes, EYES_COLOR, eyesColorInput);
+  changeColor(setupFireball, FIREBALL_COLOR, fireballColorInput);
 
   // Загрузим похожих магов с сервера.
-  window.backend.load(onSuccessWizardsLoad, onErrorWizardsLoad);
+  loadSimilarWizards(onSuccessWizardsLoad, onErrorWizardsLoad);
 
 })();
 

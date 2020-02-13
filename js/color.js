@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var getRandom = window.util.getRandom;
+
   /**
    * @description Function changes color of HTML element.
    * @param {object} element - HTML element color of which needs to be changed randomly.
@@ -9,7 +11,7 @@
    */
   var change = function (element, colors, inputName) {
     element.addEventListener('click', function () {
-      var color = window.util.getRandom(colors);
+      var color = getRandom(colors);
       inputName.value = color;
 
       if (element.tagName.toLowerCase() === 'div') {
