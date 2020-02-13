@@ -70,7 +70,7 @@
     NETWORK_AUTHENTICATION_REQUIRED: 511
   };
 
-  var load = function (onLoad, onError) {
+  var sendRequest = function (method, URL, data, onLoad, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
     xhr.timeout = TIMEOUT;
@@ -107,34 +107,16 @@
       onError('Запрос не успел выполниться за ' + xhr.timeout + ' мс');
     });
 
-    xhr.open('GET', URL_LOAD);
-    xhr.send();
+    xhr.open(method, URL);
+    xhr.send(data);
+  };
+
+  var load = function (onLoad, onError) {
+    sendRequest('GET', URL_LOAD, null, onLoad, onError);
   };
 
   var save = function (data, onLoad, onError) {
-    var xhr = new XMLHttpRequest();
-    xhr.responseType = 'json';
-    xhr.timeout = TIMEOUT;
-
-    xhr.addEventListener('load', function () {
-      if (xhr.status === StatusCode.OK) {
-        onLoad(xhr.response);
-      } else {
-        onError('Ошибка получения данных: ' + xhr.status + ' ' + xhr.statusText);
-      }
-    });
-
-    xhr.addEventListener('error', function () {
-      onError('Произошла ошибка соединения. Пожалуйста, проверьте свое подключение к Интернету.');
-    });
-
-    xhr.addEventListener('timeout', function () {
-      onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
-    });
-
-    xhr.open('POST', URL_SAVE);
-    xhr.send(data);
-
+    sendRequest('POST', URL_SAVE, data, onLoad, onError);
   };
 
   window.backend = {
