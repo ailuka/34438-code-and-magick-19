@@ -3,6 +3,8 @@
 (function () {
   var ESC_KEY = 'Escape';
   var ENTER_KEY = 'Enter';
+  var ERROR_COLOR = 'rgb(0, 0, 0)';
+  var SUCCESS_COLOR = 'rgb(0, 180, 0)';
 
   /**
    * @description function to get a random item from an array.
@@ -33,10 +35,23 @@
     return maxNumber;
   };
 
+  var showMessageElement = function (errorText, messageBlock, color) {
+    var errorElement = document.createElement('div');
+    errorElement.style = 'margin: 0 auto; padding: 30px; text-align: center; color: white';
+    errorElement.style.fontSize = '24px';
+    errorElement.style.backgroundColor = color;
+
+    errorElement.textContent = errorText;
+    messageBlock.insertAdjacentElement('afterbegin', errorElement);
+  };
+
   window.util = {
     ESC_KEY: ESC_KEY,
     ENTER_KEY: ENTER_KEY,
+    ERROR_COLOR: ERROR_COLOR,
+    SUCCESS_COLOR: SUCCESS_COLOR,
     getRandom: getRandom,
-    getMaxNumber: getMaxNumber
+    getMaxNumber: getMaxNumber,
+    showMessageElement: showMessageElement
   };
 })();

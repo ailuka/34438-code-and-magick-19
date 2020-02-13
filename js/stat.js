@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  var getMaxNumber = window.util.getMaxNumber;
   var CLOUD_WIDTH = 420;
   var CLOUD_HEIGHT = 270;
   var CLOUD_X = 100;
@@ -90,7 +91,7 @@
     displayWelcomeText(ctx, '#000', '16px PT Mono');
 
     // Определяем максимльное время прохождения игры
-    var maxTime = window.util.getMaxNumber(times);
+    var maxTime = getMaxNumber(times);
 
     for (var i = 0; i < names.length; i++) {
       renderResultGraph(ctx, names[i], times[i], maxTime, i);
