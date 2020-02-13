@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var SUCCESS_MESSAGE = 'Данные успешно сохранены.';
+
   /**
    * @description Function checks, if element is in focus or not.
    * @param {object} element - HTML element
@@ -68,6 +70,23 @@
     if (evt.key === window.util.ENTER_KEY) {
       closePopup();
     }
+  });
+
+  var onSetupFormSuccessLoad = function () {
+    window.util.showMessageElement(SUCCESS_MESSAGE, document.body, window.util.SUCCESS_COLOR);
+    closePopup();
+  };
+
+  var errorBlock = setup.querySelector('.setup-footer');
+  var onSetupFormError = function (errorMessage) {
+    window.util.showMessageElement(errorMessage, errorBlock, window.util.ERROR_COLOR);
+  };
+
+  var setupForm = setup.querySelector('.setup-wizard-form');
+  // Отменяем действие по умолчанию и сохраняем данные из формы с помощью AJAX.
+  setupForm.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.backend.save(new FormData(setupForm), onSetupFormSuccessLoad, onSetupFormError);
   });
 
 })();
