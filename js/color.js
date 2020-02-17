@@ -2,14 +2,16 @@
 
 (function () {
   var getRandom = window.util.getRandom;
+  var debounce = window.debounce.set;
 
   /**
    * @description Function changes color of HTML element.
    * @param {object} element - HTML element color of which needs to be changed randomly.
    * @param {Array} colors - Array of colors for the element.
    * @param {object} inputName - Hidden input for the element.
+   * @param {function} updateFunction - Function to update elements in color change.
    */
-  var change = function (element, colors, inputName) {
+  var change = function (element, colors, inputName, updateFunction) {
     element.addEventListener('click', function () {
       var color = getRandom(colors);
       inputName.value = color;
@@ -19,6 +21,9 @@
       } else {
         element.style.fill = color;
       }
+
+      debounce(updateFunction());
+
     });
   };
 
