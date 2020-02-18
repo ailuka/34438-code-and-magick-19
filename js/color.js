@@ -22,8 +22,8 @@
         element.style.fill = color;
       }
 
-      debounce(updateFunction());
-
+      var debouncedUpdateFunction = debounce(updateFunction);
+      debouncedUpdateFunction();
     });
   };
 
