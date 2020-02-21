@@ -3,6 +3,8 @@
 (function () {
   var dialogHandle = window.dnd.dialogHandle;
   var onDragAndDrop = window.dnd.onDragAndDrop;
+  var addAvatarListener = window.avatar.addListener;
+  var removeAvatarListener = window.avatar.removeListener;
   var showMessageElement = window.util.showMessageElement;
   var saveForm = window.backend.save;
   var ENTER_KEY = window.util.ENTER_KEY;
@@ -50,6 +52,7 @@
     resetElementPosition(setup);
     document.addEventListener('keydown', onPopupEscPress);
     dialogHandle.addEventListener('mousedown', onDragAndDrop);
+    addAvatarListener();
   };
 
   var setupClose = setup.querySelector('.setup-close');
@@ -57,6 +60,7 @@
     setup.classList.add('hidden');
     document.removeEventListener('mousedown', onDragAndDrop);
     document.removeEventListener('keydown', onPopupEscPress);
+    removeAvatarListener();
   };
 
   setupOpen.addEventListener('click', function () {
